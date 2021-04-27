@@ -1,0 +1,1 @@
+from blr_sghmc.classifier import BayesianLogisticRegression
