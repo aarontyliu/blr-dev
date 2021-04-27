@@ -1,14 +1,14 @@
 from distutils.core import setup
 
 setup(
-    name = 'my_python_package',
-    packages = ['my_python_package'],
-    version = 'version number',  # Ideally should be same as your GitHub release tag varsion
-    description = 'description',
-    author = '',
-    author_email = '',
-    url = 'github package source url',
-    download_url = 'download link you saved',
-    keywords = ['tag1', 'tag2'],
+    name = 'blr-sghmc',
+    packages = ['blr-sghmc'],
+    version = '0.0.1',  # Ideally should be same as your GitHub release tag varsion
+    description = 'Bayesian Logistic Regression using Stochastic Gradient Hamiltonian Monte Carlo',
+    author = 'Aaron Liu',
+    author_email = 'tl254@duke',
+    url = 'https://github.com/tienyuliu/blr-dev',
+    download_url = '',
+    keywords = ['Bayesian Logistic Regression', 'Stochastic Gradient Hamiltonian Monte Carlo'],
     classifiers = [],
 )
