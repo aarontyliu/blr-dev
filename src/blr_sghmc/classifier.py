@@ -8,7 +8,34 @@ from blr_sghmc.optim import hmc, sghmc, original_sghmc
 
 class BayesianLogisticRegression(ClassifierMixin, BaseEstimator):
     """
-    Bayesian Logistic Regression.
+    Bayesian Logistic Regression using Stochastic Gradient Hamiltonian Monte Carlo.
+
+    This classifier currently supports binary classification application.
+    The optimization method closely follows the algo. 2 in (Chen et al., 2014) but with
+    the modifications to accelerate the model fitting.
+
+    Parameters
+    ----------
+    fit_intercept : bool, default=True
+        Specifies if a constant (a.k.a. bias or intercept) should be
+        added to the decision function.
+
+    solver : str, default='sghmc'
+        Algorithm to use in the optimization problem.
+
+    max_iter : int, default=100
+        The max of numbers of iterations performed during the MCMC process.
+
+    verbose : bool, default=False
+        Specifies if fitting history needs to be displayed.
+
+    batch_size : int, default=64
+        Specifies the batch size used during the optimization of using 'sghmc' or 'original_sghmc'.
+
+    eps : float, default=1e-4
+        IMPORTANT: Controls the step size during the Hamiltonian Monte Carlo. User may need to
+        tune this parameter to search for better results.
+
     """
 
     def __init__(
@@ -18,6 +45,7 @@ class BayesianLogisticRegression(ClassifierMixin, BaseEstimator):
         max_iter=100,
         verbose=0,
         batch_size=64,
+        eps=1e-4,
     ):
 
         self.fit_intercept = fit_intercept
@@ -33,8 +61,12 @@ class BayesianLogisticRegression(ClassifierMixin, BaseEstimator):
         self.max_iter = max_iter
         self.verbose = verbose
         self.batch_size = batch_size
+        self.eps = eps
 
     def fit(self, X, y, M="I"):
+        """
+        Train the classifier with input pair: X, y
+        """
 
         X, y = check_X_y(X, y)
 
@@ -53,13 +85,14 @@ class BayesianLogisticRegression(ClassifierMixin, BaseEstimator):
             self.M,
             max_iter=self.max_iter,
             m=400,
-            eps=1e-4,
+            eps=self.eps,
             verbose=self.verbose,
         )
 
         return self
 
     def predict_proba(self, X):
+        """Generate probability."""
         check_is_fitted(self)
         X = check_array(X)
 
@@ -70,10 +103,13 @@ class BayesianLogisticRegression(ClassifierMixin, BaseEstimator):
         return y_prob
 
     def predict(self, X, threshold=0.5):
+        """Generate predictions with the input threshold."""
         return (self.predict_proba(X) > threshold).astype(int)
 
     def predict_log_prob(self, X):
+        """Generate log probability."""
         return np.log(self.predict_proba(X))
 
     def sigmoid(self, x):
+        """Sigmoid function."""
         return 1 / (1 + np.exp(-x))
