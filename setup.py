@@ -6,8 +6,8 @@ with open("README.md", "r", encoding="utf-8") as fh:
 setuptools.setup(
     name="blr-sghmc", # Replace with your own username
     version="0.0.5",
-    author="Aaron Liu; Christy Hu",
-    author_email="tl254@duke.edu; dh275@duke.edu",
+    author="Aaron Liu, Christy Hu",
+    author_email="tl254@duke.edu, dh275@duke.edu",
     description="Bayesian Logistic Regression using Stochastic Gradient Hamiltonian Monte Carlo",
     long_description=long_description,
     long_description_content_type="text/markdown",

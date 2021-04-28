@@ -1,13 +1,37 @@
 Metadata-Version: 2.1
 Name: blr-sghmc
-Version: 0.0.4
-Summary: Bayesian Logistic Regression using Stochastic Gradient
+Version: 0.0.5
+Summary: Bayesian Logistic Regression using Stochastic Gradient Hamiltonian Monte Carlo
 Home-page: https://github.com/tienyuliu/blr-dev
-Author: Aaron Liu
-Author-email: tl254@duke.edu
+Author: Aaron Liu, Christy Hu
+Author-email: tl254@duke.edu, dh275@duke.edu
 License: UNKNOWN
 Project-URL: Bug Tracker, https://github.com/tienyuliu/blr-dev/issues
 Description: # blr-dev
+        
+        This repository contains an implementation of bayesian logistic regression using a method developed by Chen et al. in 2014 (Stochastic Gradient Hamiltonian Monte Carlo).
+        
+        
+        Installation
+        ```bash
+        pip install -i https://test.pypi.org/simple/ blr-sghmc
+        ```
+        
+        
+        
+        Example:
+        ```python
+        from sklearn.datasets import make_classification
+        from sklearn.model_selection import train_test_split
+        from blr_sghmc import BayesianLogisticRegression
+        
+        X, y = make_classification()
+        X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.1)
+        model = BayesianLogisticRegression(max_iter=100, verbose=0, solver='sghmc', batch_size=16, eps=1e-3)
+        model.fit(X_train, y_train)
+        model.score(X_val, y_val)
+        ```
+        
 Platform: UNKNOWN
 Classifier: Programming Language :: Python :: 3
 Classifier: License :: OSI Approved :: MIT License
