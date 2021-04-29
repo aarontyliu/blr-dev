@@ -18,7 +18,8 @@ def prior(params):
     Lasso prior (Park and Casella, 2008).
     """
     a, b = 1, 2
-    return a / (2 * ((b ** 2) ** 0.5)) * np.exp(-a * np.abs(params) / ((b ** 2) ** 0.5))
+    return (a / (2 * ((b ** 2) ** 0.5)) * 
+        np.exp(-a * np.abs(params) / ((b ** 2) ** 0.5)))
 
 
 def del_prior(params):
@@ -73,7 +74,8 @@ def del_U(X, y, params, scale=1):
     """
     del_U(X, y, params, scale=1)
 
-    The derivatives of the potential energy with resect to the input paramsters params.
+    The derivatives of the potential energy with resect to the input 
+    paramsters params.
     """
     return -(
         scale * ((y[:, None] - sigmoid(X @ params)).T @ X).flatten()
@@ -94,7 +96,7 @@ def hmc(X, y, M, penalty="l1", max_iter=500, m=1000, eps=1e-5, verbose=False):
     """
     hmc(X, y, M, penalty="l1", max_iter=500, m=1000, eps=1e-5, verbose=False)
 
-    Algorithm 1 in Stochastic Gradient Hamiltonian Monte Carlo (Chen et al., 2014)
+    Algorithm 1 in (Chen et al., 2014)
     """
     n_params = X.shape[1]
     params_t = np.random.normal(size=(n_params, 1))
@@ -131,9 +133,11 @@ def original_sghmc(
     X, y, M, batch_size=16, max_iter=500, m=1000, eps=1e-5, verbose=False
 ):
     """
-    original_sghmc(X, y, M, batch_size=16, max_iter=500, m=1000, eps=1e-5, verbose=False)
+    original_sghmc(X, y, M, batch_size=16, max_iter=500, 
+                   m=1000, eps=1e-5, verbose=False)
 
-    Algorithm 2 in Stochastic Gradient Hamiltonian Monte Carlo (Chen et al., 2014).
+    Algorithm 2 in Stochastic Gradient Hamiltonian Monte Carlo 
+    (Chen et al., 2014).
     """
     n_samples, n_params = X.shape[0], X.shape[1]
     scale = n_samples / batch_size
@@ -167,7 +171,8 @@ def sghmc(X, y, M, batch_size=16, max_iter=500, m=1000, eps=1e-5, verbose=False)
     """
     sghmc(X, y, M, batch_size=16, max_iter=500, m=1000, eps=1e-5, verbose=False)
 
-    Optimized algorithm 2 in Stochastic Gradient Hamiltonian Monte Carlo (Chen et al., 2014).
+    Optimized algorithm 2 in Stochastic Gradient Hamiltonian Monte Carlo 
+    (Chen et al., 2014).
     """
     n_samples, n_params = X.shape[0], X.shape[1]
     scale = n_samples / batch_size

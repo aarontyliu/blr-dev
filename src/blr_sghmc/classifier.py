@@ -8,11 +8,12 @@ from blr_sghmc.optim import hmc, sghmc, original_sghmc
 
 class BayesianLogisticRegression(ClassifierMixin, BaseEstimator):
     """
-    Bayesian Logistic Regression using Stochastic Gradient Hamiltonian Monte Carlo.
+    Bayesian Logistic Regression using Stochastic Gradient Hamiltonian 
+    Monte Carlo.
 
     This classifier currently supports binary classification application.
-    The optimization method closely follows the algo. 2 in (Chen et al., 2014) but with
-    the modifications to accelerate the model fitting.
+    The optimization method closely follows the algo. 2 in (Chen et al., 2014) 
+    but with the modifications to accelerate the model fitting.
 
     Parameters
     ----------
@@ -30,11 +31,12 @@ class BayesianLogisticRegression(ClassifierMixin, BaseEstimator):
         Specifies if fitting history needs to be displayed.
 
     batch_size : int, default=64
-        Specifies the batch size used during the optimization of using 'sghmc' or 'original_sghmc'.
+        Specifies the batch size used during the optimization of using 'sghmc' 
+        or 'original_sghmc'.
 
     eps : float, default=1e-4
-        IMPORTANT: Controls the step size during the Hamiltonian Monte Carlo. User may need to
-        tune this parameter to search for better results.
+        IMPORTANT: Controls the step size during the Hamiltonian Monte Carlo. 
+        User may need to tune this parameter to search for better results.
 
     """
 
