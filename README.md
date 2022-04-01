@@ -1,4 +1,4 @@
-# blr-dev
+# blr-dev (bayesian logistic regression with stochastic gradient hamiltonian monte carlo)
 
 This repository contains an implementation of bayesian logistic regression using a method developed by Chen et al. in 2014 (Stochastic Gradient Hamiltonian Monte Carlo).
 
